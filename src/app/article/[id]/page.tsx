@@ -22,8 +22,13 @@ const articles = [
   },
 ];
 
-export default function ArticleDetail({ params }: { params: { id: string } }) {
-  const article = articles.find((a) => a.id === parseInt(params.id));
+export default async function ArticleDetail({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const id = (await params).id;
+  const article = articles.find((a) => a.id === parseInt(id));
 
   if (!article) {
     notFound();
